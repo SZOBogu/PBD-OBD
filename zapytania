@@ -1,0 +1,305 @@
+SET search_path TO studia;
+
+--Wszystkie dane nt. wszystkich studentów
+SELECT * FROM student;
+--Nazwa i id wszystkich budynkow
+SELECT building_name, id_building FROM building;
+--Dane wykladowcow o nazwisku na D
+SELECT * FROM lecturer WHERE last_name LIKE 'D%';
+--ects i nazwa przedmiotow z 30+ znakami bez whitspacow
+SELECT ects, subject_name FROM subject WHERE char_length(regexp_replace(subject_name, '[\s+]', '', 'g')) > 29;
+--Miasto, kod pocztowy, ulice nr.lokalu Kolumny miasto, kod poczt, ul, nr lokalu, potem zlacz w kolumne dane adresowe
+SELECT city, postal_code, street, apartment_number INTO Kolumny FROM address;
+SELECT * FROM Kolumny;
+--nazwiska, imiona i id studentow alfabetycznie
+SELECT first_name, last_name, id_student FROM student ORDER BY last_name;
+--oceny od najmlodszej, dd-mm-yyyy
+SELECT grade, date_of_grading FROM grade ORDER BY date_of_grading DESC;
+--dale sal z kofem zawierajacym F lub 01
+SELECT room_code FROM room WHERE room_code LIKE '%a%' OR room_code LIKE '%10%';
+--miasto i ulica, gdzie ulica na drugiej literze ma l lub i a reszta dowlona, a miejscowosc ma 8 znakow
+SELECT city, street FROM address WHERE (street LIKE '_l%' OR street LIKE '_a%') AND char_length(city) = 8;
+--nazwisko, imie, nr albumu studentow z nie Kamionki
+SELECT s.last_name, s.first_name, s.album_nr 
+FROM student AS s 
+INNER JOIN address AS a 
+ON s.fk_address_s = a.id_address
+WHERE a.city != 'Kamionka';
+--przedmioty konczoace sie na u
+SELECT subject_name FROM subject WHERE subject_name LIKE '%u';
+--wszystkie tytuly naukowe bez inzyniera
+SELECT title_name FROM academic_title WHERE title_name NOT LIKE '%inzynier%';
+--liczba studentow z kazdej grupy
+SELECT g.group_name, count(s.id_student) FROM student AS s
+INNER JOIN student_group as g
+ON s.fk_group_s = g.id_group
+GROUP BY g.group_name;
+--ile jest rodzajow przedmiotow
+SELECT DISTINCT count(subject_name) FROM subject;
+
+--2. nazwisko imie, tytul wykladowcy. imie pierwsza duza, nazwiska capsem kolumna dane osobowe
+SELECT upper(l.last_name), initcap(l.first_name), t.title_name INTO "Dane Osobowe" FROM lecturer AS l
+INNER JOIN academic_title AS t ON l.fk_academic_title = t.id_academic_title;
+SELECT * FROM "Dane Osobowe";
+--3. ile dni uplynelo od wpisania ostatnej oceny (sysdate), kto i z jakiego przedmiotu
+SELECT CURRENT_DATE - MAX(g.date_of_grading), s.first_name, s.last_name, g.grade, sub.subject_name FROM grade AS g
+INNER JOIN student AS s ON g.fk_student = s.id_student
+INNER JOIN course AS c ON g.fk_course = c.id_course
+INNER JOIN subject as sub ON c.fk_subject_c = sub.id_subject
+GROUP BY s.last_name, s.first_name, g.grade, sub.subject_name;
+--4. dane wykladowcow, ktorzy wpisali oceny w ciagu ostatnich 45 miesiacu w kolumnie dane
+SELECT * FROM lecturer AS l
+INNER JOIN course AS c ON c.fk_lecturer_c = l.id_lecturer
+INNER JOIN grade AS g ON g.fk_course = c.id_course
+WHERE ((DATE_PART('year', CURRENT_DATE) - DATE_PART('year', g.date_of_grading)) * 12 +
+              (DATE_PART('month', CURRENT_DATE) - DATE_PART('month', g.date_of_grading))) <= 45;
+--5. min, sr, max
+SELECT MIN(g.grade),  AVG(g.grade), MAX(g.grade) FROM grade AS g;
+--6. roznica miedzy najstarsza a najmlodsza oceno. kol ROZNICA
+WITH oldestGrade AS (SELECT g.grade FROM grade AS g
+WHERE g.grade IN (SELECT g.grade FROM grade AS g ORDER BY g.date_of_grading FETCH FIRST ROW ONLY)),
+newestGrade AS (SELECT DISTINCT g.grade FROM grade AS g
+WHERE g.grade = (SELECT g.grade FROM grade AS g ORDER BY g.date_of_grading DESC FETCH FIRST ROW ONLY))
+SELECT oldestGrade.grade - newestGrade.grade INTO ROZNICA2 FROM oldestGrade, newestGrade;
+SELECT * FROM ROZNICA2;
+--7. liczba prowadzacych z kazdego przedmiotu, od najmniejszej
+SELECT s.subject_name, COUNT(c.fk_lecturer_c) FROM subject AS s
+INNER JOIN course c ON c.fk_subject_c = s.id_subject GROUP BY s.subject_name ORDER BY COUNT(c.fk_lecturer_c);
+--8. student z najwieksza lczba ocen
+SELECT s.first_name, s.last_name, count(g.id_grade) FROM student AS s
+INNER JOIN grade AS g ON g.fk_student = s.id_student GROUP BY s.first_name, s.last_name ORDER BY count(g.id_grade) DESC FETCH FIRST ROW ONLY;
+--9. liczbe studentow w kazdej grupie z informatyki
+SELECT COUNT(s.id_student), g.group_name FROM student_group AS g INNER JOIN student AS s ON s.fk_group_s = g.id_group GROUP BY g.group_name;
+--10. daty najblizszych poniedzialkow, przypadajacych po ostatniej ocenie w bazie
+WITH newestGrade AS (SELECT * FROM grade ORDER BY grade.date_of_grading DESC FETCH FIRST ROW ONLY)
+SELECT 
+    *
+FROM
+    generate_series(
+		(SELECT newestGrade.date_of_grading FROM newestGrade), (SELECT newestGrade.date_of_grading FROM newestGrade) + interval '30' day, '1 day') AS g(mydate)
+WHERE
+    EXTRACT(DOW FROM mydate) = 1;
+--11.nazwiska i imiona prowadzacych. jezeli dany wykladowca ma w nazwsiku sk zamiast jego nazwiska wypisz brak przedmiotu
+SELECT l.first_name,
+	CASE WHEN l.last_name LIKE '%sk%' THEN 'brak przedmiotu'
+		 ELSE l.last_name
+	END
+FROM lecturer AS l;
+--12. zastap liczby 357 liczbami 000 w indexie
+SELECT REPLACE(CAST(s.album_nr AS varchar), CAST('245' AS varchar), CAST('000' AS varchar)) FROM student s;
+--13. nazwy przedmiotow z najwieksza liczba ects
+SELECT s.subject_name, s.ects FROM subject as s ORDER BY s.ects DESC LIMIT 5;
+--14. dzien tygodnia, w ktorym sa zajecia z algorytmow lub statystyki
+SELECT c.day_of_a_week FROM course as c
+INNER JOIN subject AS s ON c.fk_subject_c = s.id_subject
+WHERE s.subject_name = 'Dowodzenie istnienia inteligentnych form zycia na forach age of sigmar' OR
+s.subject_name = 'aktywizm przeciw polskiemu rapowi';
+--15. nazwa grupy ktora ma zajecia w budynku wfmii i wil
+SELECT g.id_group FROM student_group AS g
+INNER JOIN course AS c ON g.id_group = c.fk_student_group
+INNER JOIN room AS r ON r.id_room = c.fk_room
+INNER JOIN building AS b  ON b.id_building = r.fk_building
+WHERE b.building_name = 'Command Center' OR b.building_name = 'inzynier wrozbictwa';
+--16. ilosc ocen z kazdego przedmiotu
+SELECT COUNT(g.id_grade), s.subject_name FROM grade AS g
+INNER JOIN course AS c ON c.id_course = g.fk_course
+INNER JOIN subject AS s ON s.id_subject = fk_subject_c GROUP BY s.subject_name;
+--17. nazwy przedmiotow prowadzonych przez mgr inz
+SELECT s.subject_name FROM subject AS s
+INNER JOIN course AS c ON s.id_subject = c.fk_subject_c
+INNER JOIN lecturer AS l ON l.id_lecturer = c.fk_lecturer_c
+INNER JOIN academic_title as a ON a.id_academic_title = l.fk_academic_title
+WHERE a.title_name = 'operator koparki';
+--18. miasto, z ktorego pochodzi najmniejsza liczba studentow z dowodzenia istnienia inteligentnych form zycia na forach age of sigmar
+SELECT a.city, count(s.id_student) FROM address AS a
+INNER JOIN student AS s ON a.id_address = s.fk_address_s
+INNER JOIN student_group AS g ON g.id_group = s.fk_group_s
+INNER JOIN course AS c ON g.id_group = c.fk_student_group
+INNER JOIN subject AS su ON su.id_subject = c.fk_subject_c
+WHERE su.subject_name = 'Dowodzenie istnienia inteligentnych form zycia na forach age of sigmar'
+GROUP BY a.city ORDER BY count(s.id_student) FETCH FIRST ROW ONLY;
+--19. nazwiska prowadzacych, ktorzy sa operatorami koparki i ucza dowodzenia istnienia inteligentnych form zycia na forach age of sigmar
+SELECT l.last_name, t.title_name, s.subject_name FROM lecturer AS l
+INNER JOIN academic_title AS t ON t.id_academic_title = l.fk_academic_title
+INNER JOIN course AS c ON l.id_lecturer = c.fk_lecturer_c
+INNER JOIN subject AS s ON s.id_subject = c.fk_subject_c
+WHERE t.title_name = 'operator koparki' AND
+s.subject_name = 'Dowodzenie istnienia inteligentnych form zycia na forach age of sigmar'
+--20. ile jest zajec o charakterze cwiczen
+SELECT * FROM profile;
+SELECT count(s.id_subject) FROM subject AS s
+INNER JOIN course AS c ON s.id_subject = c.fk_subject_c
+INNER JOIN profile AS p ON p.id_profile = c.fk_profile_c
+WHERE p.profile_name = 'Dwunozny';
+--21. wyswietl imi i nazw prowadzacego zajecia w budynku inzynier wrozbictwa i kiedy
+SELECT l.first_name, l.last_name, c.day_of_a_week FROM lecturer AS l
+INNER JOIN course AS c ON l.id_lecturer = c.fk_lecturer_c
+INNER JOIN subject AS s ON s.id_subject = c.fk_subject_c
+INNER JOIN room AS r ON r.id_room = c.fk_room
+INNER JOIN building AS b ON b.id_building = r.fk_building
+WHERE b.building_name = 'inzynier wrozbictwa';
+
+--22. srednia ilosc ocen z sw dla kazdej grupy
+WITH 
+
+SELECT 
+SELECT sum(g.id_grade)/count(s.id_student), gr.group_name FROM grade AS g
+INNER JOIN course AS c ON c.id_course = g.fk_course
+INNER JOIN subject AS su ON su.id_subject = c.fk_subject_c
+INNER JOIN student AS s ON s.id_student = g.fk_student
+INNER JOIN student_group AS gr ON gr.id_group = fk_group_s
+GROUP BY gr.group_name;
+
+--23. ile zajec w kazdym budynku
+
+--24. dane prowadzacych, ktorzy nie maja zajec w salach na k w poniedzilki i czwartki
+
+--25. wyswietl jakie zajecia odbywaja sie w budynkach wis
+
+--26. kto prowadzi seminaria: *******dane**************t naukowy**********8kierunek*******
+
+--27. w jakich salach i budynkach sa wyklady
+
+--28. naz i imiona studentow ktorzy majo najwiecej ocen z lektoratu
+
+--29. w ktory dzien tygodnia jest najwiecej zajec
+
+--30.im i naz, nr albumu najlepszego studenta z bdi oraz jego adres w 1 kolumnie
+
+
+'''1. Napisz program, który poprosi o podanie imienia i nazwiska (zarówno imię jak
+i nazwisko powinno być przechowywane w osobnych zmiennych), a następnie
+wyświetli na ekranie napis: Witaj imię nazwisko!
+Witaj imie nazwisko!
+'''
+
+'''
+2. Napisz program, który dla podanego przez użytkownika n obliczy wartość wyrażenia
+n! = 1 * 2 * 3 * ... * n (silnię).
+'''
+
+'''
+3. Napisz program, który dla podanej wartości r (promień) obliczy pole i obwód
+zadanego koła. Wartość PI zadeklaruj jako wartość stałą równą 3,1416.
+'''
+
+'''
+4. Napisz program, który przy podanych dwóch zmiennych podniesie wartość pierwszej
+zmiennej do potęgi równej wartości drugiej zmiennej (bez użycia funkcji power).
+Program powinien działać dla liczb z zakresu od 1 do 10. W przeciwnym przypadku
+powinien wypisać komunikat informujący, która liczba (podstawa lub wykładnik)
+przekracza zakres.
+Proszę podać wartość dla podstawy:
+Proszę podać wartość dla wykładnika:
+wykładnik wynosi
+podstawa wynosi
+Wynik:
+'''
+
+'''
+5. Napisz program, który dla podanej przez użytkownika liczby wyrazów szeregu obliczy
+liczbę e (liczba Eulera) ze wzoru:
+Podaj liczbe wyrazow szeregu:
+Liczba e wynosi:
+'''
+
+'''
+6. Napisz program, który będzie pracował do momentu, gdy nastanie najbliższa sekunda
+aktualnego czasu systemowego będąca wielokrotnością liczby 15 (czyli 0, 15, 30, 45).
+Przed zakończeniem program powinien wypisać tekst: Jest godzina HH:MM:SS.
+Koncze działanie.
+'''
+
+'''
+7. Napisz anonimowy blok PL/SQL, który wypisze ile dni minęło od twojej daty
+urodzenia. Data ma być podawana z klawiatury. Wprowadź obsługę błędów gdy
+zostanie podana nieprawidłowa data – kontroluj ilość dni w miesiącu oraz miesięcy w
+roku.
+'''
+
+'''
+1. Napisać program, który dla podanego nazwiska i imienia prowadzącego zwróci liczbę
+przedmiotów przez niego prowadzonych. Wykorzystaj zapytanie w PL/SQL.
+'''
+
+'''
+2. Napisać program PL/SQL, który dla podanego nr albumu studenta oraz budynku i sali
+zwróci liczbę przedmiotów, na które uczęszcza dany student. Wykorzystaj zapytanie
+w PL/SQL
+'''
+
+'''
+3. Napisz program, który wyświetli imiona, nazwiska oraz numery albumu wszystkich
+studentów, w następującej postaci (wynik powinien być posortowany według nazwisk
+w kolejności odwrotnej, wszystkie nazwiska dużymi literami, odstępy w postaci
+wykropkowanej). Wykorzystaj polecenie FETCH.
+STUDENCI:
+Jan.......NOWAK.......51120435861
+Jakub.....LIPKA.......65060712098
+Piotr.....KOWALSKI....32121345067
+Bogdan....BRACKI......44032478690
+'''
+
+'''
+4. Napisz program w trzech wariantach, który pobierze dane wszystkich studentów i
+umieści je w zmiennej rekordowej. W pierwszym wariancie zadeklaruj zmienną jako
+rekord typu TYPE … IS RECORD, w drugim wykorzystaj atrybut %ROWTYPE,
+w trzecim wykorzystaj pętlę FOR z kursorem. Wyświetl wszystkie dane z rekordu.
+'''
+
+'''
+5. Napisz program zwiększający ocenę studenta najgorszego z wybranego przedmiotu o
+0,5. Zmiany należy przerwać, jeśli w jakimś momencie ocena będzie poza zakresem
+obowiązujących ocen. Wprowadzić obsługę błędów. Nazwę przedmiotu wraz z ilością
+zmian wypisać na ekranie.
+'''
+
+'''
+6. Napisać program, który zmodyfikuje typ zajęć dla podanej grupy studenckiej w
+zależności od jego aktualnej zawartości. Wykorzystaj zamianę wg wzorca:
+L - W
+W - Ć
+P – L
+Ć - P
+'''
+
+'''
+7. Napisz program, który wyświetli dane o wszystkich studentach, którzy nie mają
+zaliczenia przynajmniej z jednego przedmiotu (nazwa przedmiotu, nazwisko i imię
+prowadzącego). Korzystając z atrybutu %ROWCOUNT ogranicz ilość wyników do
+trzech pozycji.
+'''
+
+'''
+8. Podnieś ocenę wszystkim studentom z przedmiotu (nazwa przedmiotu – parametrem
+kursora) o jeden stopień, a pozostałe oceny o 0,5 jeśli to możliwe. Bezpośrednio po
+zmianie oceny wyświetl na ekranie nazwisko i imię studenta oraz nową ocenę. W
+pierwszym wariancie programu skorzystaj z klauzuli WHERE CURRENT OF (celem
+wskazania rekordu do zmiany ceny). W wariancie drugim skorzystaj z klauzuli
+RETURNING INTO (celem przekazania zmienionej oceny do zmiennej).
+'''
+
+'''
+5. Napisz procedurê sparametryzowan¹, w której zostanie wybrany
+najlepszy student, a jego nazwisko, imiê i numer albumu oraz œrednia
+zostan¹ przekazane do œrodowiska wywo³uj¹cego, gdzie nale¿y wypisaæ
+je na ekranie. WprowadŸ obs³ugê b³êdów, jeœli wiêcej ni¿ jeden student
+uzyska najwy¿sz¹ œredni¹.
+'''
+
+'''
+6. Utworzyæ funkcjê, która dla podanego nazwiska i imienia prowadz¹cego
+(parametr), zwróci liczbê przedmiotów przez niego prowadzonych.
+'''
+
+'''
+7. Napisaæ funkcje PL/SQL, która dla podanego nr albumu studenta oraz
+budynku i sali (parametry) zwróci liczbê przedmiotów, na które uczêszcza
+dany student.
+'''
+
+'''
+8. Napisaæ procedurê, która zmodyfikuje typ zajêæ dla podanej, jako
+parametr grupy studenckiej w zale¿noœci od jego aktualnej zawartoœci.
+Wykorzystaj klauzurê: L – W oraz W - Æ
+'''

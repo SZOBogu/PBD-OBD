@@ -1,0 +1,188 @@
+-- Database: studia
+CREATE DATABASE studia;
+DROP SCHEMA IF EXISTS studia CASCADE;
+CREATE SCHEMA studia;
+
+SHOW search_path;
+SET search_path TO studia,public;
+
+-- SELECT pg_catalog.set_config('search_path', 'public', false);
+
+CREATE TABLE IF NOT EXISTS address(
+	id_address serial PRIMARY KEY,
+	street varchar(100),
+	building_number integer,
+	apartment_number integer,
+	postal_code varchar(20),
+	city varchar(100)
+);
+
+CREATE TABLE IF NOT EXISTS lecturer(
+	id_lecturer serial PRIMARY KEY,
+	first_name varchar(20),
+	last_name varchar(30),
+	fk_address_l serial,
+	fk_academic_title serial
+);
+
+
+CREATE TABLE IF NOT EXISTS academic_title(
+	id_academic_title serial PRIMARY KEY,
+	title_name varchar(25)
+);
+
+CREATE TABLE IF NOT EXISTS building(
+	id_building serial PRIMARY KEY,
+	building_name varchar(50),
+	fk_address_b serial
+);
+
+CREATE TABLE IF NOT EXISTS student(
+	id_student serial PRIMARY KEY,
+	first_name varchar(20),
+	last_name varchar(30),
+	album_nr integer UNIQUE,
+	fk_address_s serial,
+	fk_group_s serial
+);
+
+
+CREATE TABLE IF NOT EXISTS student_group(
+	id_group serial PRIMARY KEY,
+	group_name varchar(20),
+	fk_field serial
+);
+
+CREATE TABLE IF NOT EXISTS field_of_study(
+	id_field serial PRIMARY KEY,
+	field_name varchar(40)
+);
+
+CREATE TABLE IF NOT EXISTS grade(
+	id_grade serial PRIMARY KEY,
+	grade numeric(4, 1),
+	date_of_grading DATE,
+	fk_student serial,
+	fk_course serial
+);
+
+CREATE TABLE IF NOT EXISTS course(
+	id_course serial PRIMARY KEY,
+	day_of_a_week varchar(12),
+	fk_subject_c serial,
+	fk_profile_c serial,
+	fk_student_group serial,
+	fk_room serial,
+	fk_lecturer_c serial
+);
+
+CREATE TABLE IF NOT EXISTS room(
+	id_room serial PRIMARY KEY,
+	room_code varchar(10),
+	fk_building serial 
+);
+
+
+CREATE TABLE IF NOT EXISTS profile(
+	id_profile serial PRIMARY KEY,
+	profile_name varchar(50)
+);
+
+CREATE TABLE IF NOT EXISTS subject(
+	id_subject serial PRIMARY KEY,
+	nazwa varchar(50),
+	ects smallint
+);
+
+ALTER TABLE lecturer ADD FOREIGN KEY (fk_address_l) REFERENCES address;
+ALTER TABLE lecturer ADD FOREIGN KEY (fk_academic_title) REFERENCES academic_title;
+ALTER TABLE building ADD FOREIGN KEY (fk_address_b) REFERENCES address;
+ALTER TABLE student ADD FOREIGN KEY (fk_address_s) REFERENCES address;
+ALTER TABLE student ADD FOREIGN KEY (fk_group_s) REFERENCES student_group;
+ALTER TABLE student_group ADD FOREIGN KEY (fk_field) REFERENCES field_of_study;
+ALTER TABLE grade ADD FOREIGN KEY (fk_student) REFERENCES student;
+ALTER TABLE grade ADD FOREIGN KEY (fk_course) REFERENCES course;
+ALTER TABLE course ADD FOREIGN KEY (fk_subject_c) REFERENCES subject;
+ALTER TABLE course ADD FOREIGN KEY (fk_profile_c) REFERENCES profile;
+ALTER TABLE course ADD FOREIGN KEY (fk_student_group) REFERENCES student_group;
+ALTER TABLE course ADD FOREIGN KEY (fk_room) REFERENCES room;
+ALTER TABLE course ADD FOREIGN KEY (fk_lecturer_c) REFERENCES lecturer;
+ALTER TABLE room ADD FOREIGN KEY (fk_building) REFERENCES building;
+
+SELECT * FROM academic_title
+SELECT * FROM address
+SELECT * FROM building
+SELECT * FROM course
+SELECT * FROM field_of_study
+SELECT * FROM grade
+SELECT * FROM lecturer
+SELECT * FROM profile
+SELECT * FROM room
+SELECT * FROM student
+SELECT * FROM student_group
+SELECT * FROM subject
+
+SELECT c.relname FROM pg_class c WHERE c.relkind = 'S';
+
+alter sequence address_id_address_seq restart with 24;
+
+alter sequence academic_title_id_academic_title_seq restart with 13;
+
+
+alter sequence building_id_building_seq restart with 42;
+--nie rusz debilu
+alter sequence building_fk_address_b_seq restart with ;
+
+
+
+alter sequence course_id_course_seq restart with 22;
+--nie rusz debilu
+alter sequence course_fk_subject_c_seq restart with ;
+alter sequence course_fk_profile_c_seq restart with ;
+alter sequence course_fk_student_group_seq restart with ;
+alter sequence course_fk_room_seq restart with ;
+alter sequence course_fk_lecturer_c_seq restart with ;
+
+
+alter sequence field_of_study_id_field_seq restart with 7;
+
+
+
+
+alter sequence grade_id_grade_seq restart with 52;
+--nie rusz debilu
+alter sequence grade_fk_student_seq restart with ;
+alter sequence grade_fk_course_seq restart with ;
+
+
+
+
+alter sequence lecturer_id_lecturer_seq restart with 14;
+--nie rusz debilu
+alter sequence lecturer_fk_address_l_seq restart with ;
+alter sequence lecturer_fk_academic_title_seq restart with ;
+
+
+
+alter sequence profile_id_profile_seq restart with 9;
+
+
+
+alter sequence room_id_room_seq restart with 52;
+--nie rusz debilu
+alter sequence room_fk_building_seq restart with ;
+
+
+
+alter sequence student_id_student_seq restart with 51;
+--nie rusz debilu
+alter sequence student_fk_address_s_seq restart with ;
+alter sequence student_fk_group_s_seq restart with ;
+
+
+alter sequence student_group_id_group_seq restart with 13;
+--nie rusz debilu
+alter sequence student_group_fk_field_seq restart with ;
+
+
+alter sequence subject_id_subject_seq restart with 9;

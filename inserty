@@ -1,0 +1,652 @@
+SET search_path TO studia;
+
+SELECT * FROM course
+--street na 100 , city na 100, postal na 20
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (0, 'os. Sknerusa McKwacza', 234, 123, 'bih-4wr', 'Sochaczewo Podpcimskie');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (1, 'ul. Ludzi sliniacych sie przez sen', 9, 3, 'kd-4', 'Dziegielowo');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (2, 'pl. Karmazynowego Paczkomatu', 12, 9, '89byet-q347', 'Poddupie Swietokszyskie');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (3, 'os. Zuzyteych pedzli', 96, 42, 'o8et-24', 'Nadkolanie');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (4, 'ul. Kryzysu Finansowego 2022', 08975, 36, 'oig-325', 'Makakrupczatkowkowice');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (5, 'ul. Kwiatu Lotosu', 1234, 61, '9q34-q34', 'Wiadro Podtoruniem');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (6, 'pl. Fiata 125p', 32, 72, '9b8-231', 'Swiedzilokieciewo');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (7, 'ul. Kontuzji miesnia czworoglowego', 6, 18, 'fyk-2134', 'Gdzies pod knurowem');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (8, 'os. Dla Zjebow', 890, 13, '09n8324-q235', 'Podwawelsk');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (9, 'ul. Goriona', 1, 24, 'o8n-234', 'Czerwionka');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (10, 'ul. Czerwonych Kombinerek', 21, 14, 'ed7t-235', 'Komuchow');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (11, 'ul. Twoich niesmiesznych zartow idioto', 2, 154, 'oiur5y-w4', 'Kaufalndowice');	
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (12, 'ul. Swedzocego Kinola', 430, 95, 'pqvet-356', 'Podstawkaartyleryskacz');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (13, 'os. Kwiatow, Owocow i Warzyw', 6, 2345, 'wsm4u6-', 'arpackie Kozy');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (14, 'ul. Recznika Papaierowego', 14, 3, 'w56-46', 'PlytaOSBicze');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (15, 'ul. Patricka Batemana', 8, 8923, '1	-5ew86', 'Dentystow Lubuski');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (16, 'ul. Paragon od Ikei', 9, 26894542, 'srn-3n6', 'Ospawietznow');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (17, 'ul. Empire ma za droga kawe', 8, 2453, 'ae65a-e6', 'Kortyz');	
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (18, 'pl. Konkurs na nazwe', 4, 2, '2awb4b4-67', 'Zyrardow');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (19, 'os. Spinacza z Worda', 3, 93, 'yl9u0-3h6h', 'Czyste Kible');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (20, 'ul. Indricka Boreala', 13, 2, 'a3w4b5-ed68rmtm', 'Lategamepowerhousowacz');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (21, 'ul. Old Spajsa', 75, 456, 'guio-36n', 'Czerdziestkassie Pomorska');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (22, 'ul. Liptona', 13, 2, 'qab4-t7,o', 'Matowylakier');
+INSERT INTO address (id_address, street, building_number, apartment_number, postal_code, city)
+	VALUES (23, 'pl. Bestii z Chwaszczyna', 78, 347, 'gio-web46b', 'Koncertbodychiristowice');	
+	
+SELECT * FROM address;
+SELECT * FROM building;
+	
+DELETE FROM budynek WHERE id_budynek = 0;
+DELETE FROM sala WHERE id_sala = 0;
+DELETE FROM zajecia WHERE id_zajecia = 0;	
+DELETE FROM ocena WHERE id_ocena = 0;	
+	
+
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (0, 'Command Center', 13);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (1, 'Supply depot', 7);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (2, 'Refinery', 5);
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (3, 'Barracks', 3);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (4, 'Engineering Bay', 1);
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (5, 'Missile Turret', 0);
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (6, 'Academy', 2);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (7, 'Bunker', 4);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (8, 'Comsat Station', 6);
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (9, 'Nuclear Silo', 8);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (10, 'Factory', 10);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (11, 'Machine Shop', 12);
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (12, 'Starport', 14);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (13, 'Control Tower', 16);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (14, 'Science Facility', 18);
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (15, 'Covert Ops', 20);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (16, 'Physics Lab', 21);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (17, 'Armory', 22);
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (18, 'Nexus', 23);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (19, 'Pylon', 22);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (20, 'Assimilator', 21);
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (21, 'Gateway', 20);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (22, 'Forge', 19);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (23, 'Photon Cannon', 18);
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (25, 'Shield Battery', 17);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (24, 'Cybernetics Core', 16);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (26, 'Robotics Facility', 15);
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (27, 'Stargate', 14);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (28, 'Citadel of Adun', 13);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (29, 'Robotics Support Bay', 12);
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (30, 'Templar Archives', 11);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (31, 'Fleet Beacon', 10);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (32, 'Arbiter Tribunal', 9);
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (33, 'Observatory', 8);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (34, 'Hatchery', 7);
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (35, 'Lair', 6);
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (36, 'Hive', 5);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (37, 'Creep Colony', 4);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (38, 'Spore Colony', 3);
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (39, 'Sunken Colony', 2);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (40, 'Extractor', 1);	
+INSERT INTO building (id_building, building_name, fk_address_b)
+	VALUES (41, 'Spawning Pool', 0);	
+--profile_name na 50
+INSERT INTO profile (id_profile, profile_name)
+	VALUES (0, 'Chaotyczny Zdurniały');
+INSERT INTO profile (id_profile, profile_name)
+	VALUES (1, 'Chaotyczny Skretynialy');	
+INSERT INTO profile (id_profile, profile_name)
+	VALUES (2, 'Chaotyczny Zglupialy');	
+INSERT INTO profile (id_profile, profile_name)
+	VALUES (3, 'Neutralny Zdurniały');	
+INSERT INTO profile (id_profile, profile_name)
+	VALUES (4, 'Neutralny Skretynialy');	
+INSERT INTO profile (id_profile, profile_name)
+	VALUES (5, 'Neutralny Zglupialy');	
+INSERT INTO profile (id_profile, profile_name)
+	VALUES (6, 'Praworzadny Zdurniały');
+INSERT INTO profile (id_profile, profile_name)
+	VALUES (7, 'Praworzadny Skretynialy');	
+INSERT INTO profile (id_profile, profile_name)
+	VALUES (8, 'Praworzadny Zglupialy');
+	
+INSERT INTO field_of_study (id_field, field_name)
+	VALUES (0, 'Filologia szyndlerowska');	
+INSERT INTO field_of_study (id_field, field_name)
+	VALUES (1, 'Alpinistyka równinna');
+INSERT INTO field_of_study (id_field, field_name)
+	VALUES (2, 'Grzebanie w nosie ekstremalne');	
+INSERT INTO field_of_study (id_field, field_name)
+	VALUES (3, 'Pocacesierecelogia');
+INSERT INTO field_of_study (id_field, field_name)
+	VALUES (4, 'Rippetoelogy');		
+INSERT INTO field_of_study (id_field, field_name)
+	VALUES (5, 'Przecena w zabce stosowana');
+INSERT INTO field_of_study (id_field, field_name)
+	VALUES (6, 'Robotyka hellenistyczna');	
+--group name na 20
+INSERT INTO student_group (id_group, group_name, fk_field)
+	VALUES (0, 'w strone slonca', 0);	
+INSERT INTO student_group (id_group, group_name, fk_field)
+	VALUES (1, 'pułnoc', 5);
+INSERT INTO student_group (id_group, group_name, fk_field)
+	VALUES (2, 'południe', 4);	
+INSERT INTO student_group (id_group, group_name, fk_field)
+	VALUES (3, 'zachut', 3);	
+INSERT INTO student_group (id_group, group_name, fk_field)
+	VALUES (4, 'wschut', 2);
+INSERT INTO student_group (id_group, group_name, fk_field)
+	VALUES (5, 'prawo', 1);	
+INSERT INTO student_group (id_group, group_name, fk_field)
+	VALUES (6, 'lewo', 0);	
+INSERT INTO student_group (id_group, group_name, fk_field)
+	VALUES (7, 'tam', 1);
+INSERT INTO student_group (id_group, group_name, fk_field)
+	VALUES (8, 'siam', 2);	
+INSERT INTO student_group (id_group, group_name, fk_field)
+	VALUES (9, 'za garazami', 3);
+INSERT INTO student_group (id_group, group_name, fk_field)
+	VALUES (10, 'tam o', 4);
+INSERT INTO student_group (id_group, group_name, fk_field)
+	VALUES (11, 'u tereski', 5);	
+INSERT INTO student_group (id_group, group_name, fk_field)
+	VALUES (12, 'podziemio', 6);	
+	
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (0, 'Jerzy', 'Krzak', 410034, 9, 11);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (1, 'Balbina', 'Kostka', 4134, 10, 11);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (2, 'Dagna', 'Czub', 6234, 11, 5);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (3, 'Debora', 'Gac', 1234, 1, 10);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (4, 'Elif', 'Ociepka', 934, 9, 7);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (5, 'Iwa', 'figiel', 287, 8, 0);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (6, 'Latika', 'Świętochłowski', 3890, 7, 1);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (7, 'Latoya', 'Mazurek', 298, 0, 6);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (8, 'Leokadia', 'Frej', 876213, 6, 2);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (9, 'Masza', 'Żelasko', 245, 22, 8);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (10, 'Waleria', 'Bliski', 58, 15, 3);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (11, 'Chioma', 'Grzonka', 156, 21, 9);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (12, 'Geodyp', 'Rosiek', 3234, 5, 4);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (13, 'Dastin', 'Włoszek', 9720, 13, 12);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (14, 'Euzebiusz', 'Łuszczek', 2645, 14, 2);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (15, 'Goran', 'Sierpiński', 8256, 2, 3);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (16, 'Krzesimir', 'Marszałek', 632856, 17, 6);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (17, 'Geodyp', 'Fudala', 482, 18, 12);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (18, 'Geodyp', 'Szewczuk', 2596, 4, 1);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (19, 'Wilhelm', 'Skarżyński', 32, 12, 10);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (20, 'Eugeiusz', 'Wacławek', 9231, 23, 4);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (21, 'Gaspar', 'Dulski', 1575, 19, 5);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (22, 'Gaston', 'Domin', 302, 20, 8);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (23, 'Jarema', 'Wąs', 8643, 16, 9);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (24, 'Lubomir', 'Grygoruk', 45, 3, 11);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (25, 'Hieronim', 'Chobak', 6, 9, 0);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (26, 'Bonawentura', 'Urbanowicz', 2323434, 5, 7);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (27, 'Gerwazy', 'Łysek', 7896, 14, 7);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (28, 'Swietopelk', 'Jasek', 33652, 15, 3);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (29, 'Wiesław', 'Sarnowski', 256, 4, 8);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (30, 'Snoop', 'Błoński', 876, 3, 5);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (31, 'Angelo', 'Mąka', 23, 21, 6);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (32, 'Tazok', 'Spychała', 375, 20, 12);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (33, 'Dearmid', 'Radtke', 36, 13, 2);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (34, 'Jeirdan', 'Chudzik', 727, 23, 4);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (35, 'SteveMRE', 'Smoczyński', 28, 2, 0);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (36, 'Biezdar', 'Pieczara', 958187, 18, 9);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (37, 'Ciecimiar', 'Braun', 7576, 6, 11);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (38, 'Chwalibóg', 'Staroń', 142, 10, 1);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (39, 'Dalestryj', 'Rudnik', 3, 11, 10);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (40, 'Dobruto', 'Błaszczak', 42, 12, 3);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (41, 'Dadzbog', 'Murzyn', 8760, 0, 7);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (42, 'Dzwigor', 'Stachoń', 955462887, 22, 11);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (43, 'Dzwislaw', 'Lewkowicz', 9467, 16, 2);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (44, 'Falisław', 'Małysa', 2634, 1, 4);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (45, 'Falibor', 'Pych', 34245, 7, 9);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (46, 'Jarostryj', 'Kucharczyk', 2473567, 8, 11);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (47, 'Jutrowoj', 'Pelczar', 267356, 17, 11);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (48, 'Kanmił', 'Dziki', 45724572, 19, 2);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (49, 'Mszczuj', 'Kucharek', 467356735, 2, 3);
+INSERT INTO student (id_student, first_name, last_name, album_nr, fk_address_s, fk_group_s)
+	VALUES (50, 'Niedoma', 'Bajon', 24776537, 3, 1);
+	
+INSERT INTO subject (id_subject, subject_name, ects)
+	VALUES (0, 'Rodzina 2+2 w analizie matematycznej', 3);	
+INSERT INTO subject (id_subject, subject_name, ects)
+	VALUES (1, 'Przekladanie gili z lewej dziurki do prawej', 3);
+INSERT INTO subject (id_subject, subject_name, ects)
+	VALUES (2, 'Teoria karton gipsu', 3246);	
+INSERT INTO subject (id_subject, subject_name, ects)
+	VALUES (3, 'Impresjonistyczne lastryko', 234);	
+INSERT INTO subject (id_subject, subject_name, ects)
+	VALUES (4, 'Dowodzenie istnienia inteligentnych form zycia na forach age of sigmar', 5);	
+INSERT INTO subject (id_subject, subject_name, ects)
+	VALUES (5, 'Systemy ekspercie dobierajace 2D waifu', 89);
+INSERT INTO subject (id_subject, subject_name, ects)
+	VALUES (6, 'Hodowanie rzeżuchy', 2);	
+INSERT INTO subject (id_subject, subject_name, ects)
+	VALUES (7, 'wrzucanie wegla spowrotem do kopalnii', 54);	
+INSERT INTO subject (id_subject, subject_name, ects)
+	VALUES (8, 'aktywizm przeciw polskiemu rapowi', 14);	
+	
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (0, '41S0', 41);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (1, '40S1', 40);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (2, '39S2', 39);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (3, '38S3', 38);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (4, '37S4', 37);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (5, '36S5', 36);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (6, '35S6', 35);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (7, '34S7', 34);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (8, '33S8', 33);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (9, '32S9', 32);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (10, '31S10', 31);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (11, '30S11', 30);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (12, '29S12', 29);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (13, '28S13', 28);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (14, '27S14', 27);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (15, '26S15', 26);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (16, '25S16', 25);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (17, '24S17', 24);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (18, '23S18', 23);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (19, '22S19', 22);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (20, '21S20', 21);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (21, '20S21', 20);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (22, '19S22', 19);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (23, '18S23', 18);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (24, '17S24', 17);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (25, '16S24', 16);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (26, '15S26', 15);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (27, '14S27', 14);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (28, '13S28', 13);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (29, '12S29', 12);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (30, '11S30', 11);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (31, '10S31', 10);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (32, '9S32', 9);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (33, '8S33', 8);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (34, '7S34', 7);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (35, '6S35', 6);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (36, '5S36', 5);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (37, '4S37', 4);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (38, '3S38', 3);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (39, '2S39', 2);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (40, '1S40', 1);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (41, '0S41', 0);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (42, '3S42', 3);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (43, '9S43', 9);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (44, '18S44', 18);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (45, '27S45', 27);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (46, '36S46', 36);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (47, '2S47', 2);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (48, '4S48', 4);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (49, '8S49', 8);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (50, '16S50', 16);
+INSERT INTO room (id_room, room_code, fk_building)
+	VALUES (51, '32S51', 32);
+	
+INSERT INTO academic_title (id_academic_title, title_name)
+	VALUES (0, 'operator koparki');
+INSERT INTO academic_title (id_academic_title, title_name)
+	VALUES (1, 'technik hotlearstwa');
+INSERT INTO academic_title (id_academic_title, title_name)
+	VALUES (2, 'protoss ape');
+INSERT INTO academic_title (id_academic_title, title_name)
+	VALUES (3, 'reddit gold owner');
+INSERT INTO academic_title (id_academic_title, title_name)
+	VALUES (4, 'hot tub streamer');
+INSERT INTO academic_title (id_academic_title, title_name)
+	VALUES (5, 'decepticon');
+INSERT INTO academic_title (id_academic_title, title_name)
+	VALUES (6, 'inzynier ekonomii');
+INSERT INTO academic_title (id_academic_title, title_name)
+	VALUES (7, 'krul złoty');
+INSERT INTO academic_title (id_academic_title, title_name)
+	VALUES (8, 'bloatlord');
+INSERT INTO academic_title (id_academic_title, title_name)
+	VALUES (9, 'filthy weeb');
+INSERT INTO academic_title (id_academic_title, title_name)
+	VALUES (10,'discord mod');
+	
+INSERT INTO lecturer (id_lecturer, first_name, last_name, fk_address_l, fk_academic_title)
+	VALUES (0, 'Wiślimir', 'Dąbrowski', 23, 0);
+INSERT INTO lecturer (id_lecturer, first_name, last_name, fk_address_l, fk_academic_title)
+	VALUES (1, 'Ludomyśl', 'Woźniak', 6, 6);
+INSERT INTO lecturer (id_lecturer, first_name, last_name, fk_address_l, fk_academic_title)
+	VALUES (2, 'Władybóg', 'Szymański', 4, 1);
+INSERT INTO lecturer (id_lecturer, first_name, last_name, fk_address_l, fk_academic_title)
+	VALUES (3, 'Tomir', 'Nowakowski', 13, 7);
+INSERT INTO lecturer (id_lecturer, first_name, last_name, fk_address_l, fk_academic_title)
+	VALUES (4, 'Spitosława', 'Duda', 18, 9);
+INSERT INTO lecturer (id_lecturer, first_name, last_name, fk_address_l, fk_academic_title)
+	VALUES (5, 'Wszerad', 'Górski', 2, 4);
+INSERT INTO lecturer (id_lecturer, first_name, last_name, fk_address_l, fk_academic_title)
+	VALUES (6, 'Żegota', 'Baran', 5, 3);
+INSERT INTO lecturer (id_lecturer, first_name, last_name, fk_address_l, fk_academic_title)
+	VALUES (7, 'Jaropełk', 'Kubiak', 22, 0);
+INSERT INTO lecturer (id_lecturer, first_name, last_name, fk_address_l, fk_academic_title)
+	VALUES (8, 'Czcimisława', 'Sadowski', 21, 8);
+INSERT INTO lecturer (id_lecturer, first_name, last_name, fk_address_l, fk_academic_title)
+	VALUES (9, 'Strzeżymir', 'Andrzejewski', 6, 10);
+INSERT INTO lecturer (id_lecturer, first_name, last_name, fk_address_l, fk_academic_title)
+	VALUES (10, 'Wszemir', 'Cieślak', 3, 9);
+INSERT INTO lecturer (id_lecturer, first_name, last_name, fk_address_l, fk_academic_title)
+	VALUES (11, 'Tolimir', 'Wsnieguwyszaniecki', 6, 7);
+INSERT INTO lecturer (id_lecturer, first_name, last_name, fk_address_l, fk_academic_title)
+	VALUES (12, 'Przesława', 'Kaźmierczak', 14, 1);
+INSERT INTO lecturer (id_lecturer, first_name, last_name, fk_address_l, fk_academic_title)
+	VALUES (13, 'Żytysława', 'Szulc', 1, 8);
+	
+	
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (0, 'szusty', 3, 6, 5, 28, 3);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (1, 'pjonty', 4, 4, 0, 22, 13);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (2, 'czwarty', 8, 0, 3, 33, 2);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (3, 'drogi', 1, 6, 1, 40, 5);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (4, 'makaronowaty', 4, 7, 10, 29, 9);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (5, 'owocowa sroda', 5, 1, 1, 51, 2);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (6, 'slodki piatek', 6, 2, 7, 38, 8);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (7, 'pjerwszy', 7, 3, 1, 49, 9);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (8, 'usmy', 4, 5, 1, 40, 2);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (9, 'drugi', 1, 7, 2, 6, 5);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (10, 'szusty', 6, 2, 7, 35, 6);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (11, 'szusty', 0, 3, 9, 3, 4);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (12, 'czwarty', 7, 4, 3, 21, 3);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (13, 'siudmy', 1, 4, 4, 29, 13);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (14, 'drugi', 3, 6, 0, 28, 10);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (15, 'czeci', 5, 0, 12, 5, 11);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (16, 'czwarty', 8, 3, 9, 10, 12);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (17, 'czeci', 7, 7, 8, 33, 0);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (18, 'pjonty', 3, 6, 2, 9, 13);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (19, 'pjerwszy', 6, 4, 12, 29, 4);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (20, 'siudmy', 2, 7, 8, 50, 13);
+INSERT INTO course (id_course, day_of_a_week, fk_subject_c, fk_profile_c, fk_student_group, fk_room, fk_lecturer_c)
+	VALUES (21, 'dziewjonty', 3, 5, 0, 32, 6);
+	
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (0, 2.3, '1984-05-12', 50, 19);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (1, 4.5, '2001-02-11', 49, 8);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (2, 2.9, '1985-07-16', 48, 2);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (3, 4.1, '2008-05-17', 47, 0);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (4, 2.5, '2015-08-28', 46, 15);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (5, 4.8, '1995-10-04', 45, 19);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (6, 4.0, '2020-05-23', 44, 20);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (7, 4.7, '2003-08-18', 43, 19);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (8, 4.5, '1990-09-30', 42, 2);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (9, 4.7, '2018-11-12', 41, 0);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (10, 2.8, '2001-05-01', 40, 20);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (11, 4.8, '2014-08-03', 39, 9);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (12, 2.1, '2005-01-14', 38, 20);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (13, 3.9, '1985-12-10', 37, 2);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (14, 4.9, '1999-01-20', 36, 9);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (15, 3.0, '1980-08-08', 35, 2);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (16, 4.6, '2005-02-21', 34, 17);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (17, 3.3, '1995-08-02', 33, 4);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (18, 2.2, '2017-02-18', 32, 8);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (19, 4.2, '1987-03-25', 31, 16);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (20, 4.7, '1999-09-10', 30, 11);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (21, 3.6, '2017-10-27', 29, 18);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (22, 3.0, '2004-07-31', 28, 3);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (23, 4.3, '1992-04-06', 27, 11);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (24, 3.8, '1980-07-21', 26, 3);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (25, 3.3, '2015-11-01', 25, 13);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (26, 3.2, '2016-12-24', 24, 9);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (27, 3.7, '2013-11-26', 23, 13);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (28, 4.4, '2012-08-05', 22, 3);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (29, 3.0, '1990-01-15', 21, 9);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (30, 5.0, '1981-09-27', 20, 18);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (31, 3.4, '2013-07-15', 19, 21);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (32, 3.1, '1986-01-12', 18, 9);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (33, 4.8, '1980-08-09', 17, 19);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (34, 2.6, '2009-09-29', 16, 3);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (35, 3.6, '2016-03-06', 15, 11);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (36, 3.2, '1997-10-14', 14, 3);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (37, 4.4, '2009-04-09', 13, 16);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (38, 3.5, '2007-08-05', 12, 1);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (39, 3.1, '2018-10-01', 11, 2);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (40, 4.1, '2011-03-25', 10, 0);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (41, 2.2, '2022-08-27', 9, 19);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (42, 3.7, '2012-03-20', 8, 8);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (43, 3.6, '1985-09-04', 7, 18);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (44, 4.5, '1988-10-17', 6, 6);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (45, 3.9, '1994-03-18', 5, 5);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (46, 4.1, '2014-07-19', 4, 6);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (47, 3.9, '2015-04-28', 3, 16);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (48, 2.9, '1994-11-20', 2, 18);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (49, 4.5, '1990-12-15', 1, 12);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (50, 4.8, '2015-06-16', 0, 7);
+INSERT INTO grade (id_grade, grade, date_of_grading, fk_student, fk_course)
+	VALUES (51, 2.6, '1996-01-20', 0, 19);
+	
+SELECT * FROM address;
+SELECT * FROM building;
+SELECT * FROM academic_title;
+SELECT * FROM course;
+SELECT * FROM field_of_study;
+SELECT * FROM grade;
+SELECT * FROM lecturer;
+SELECT * FROM profile;
+SELECT * FROM student;
+SELECT * FROM room;
+SELECT * FROM student_group;
+SELECT * FROM subject;
+
+SELECT miasto FROM adres;
