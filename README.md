@@ -1,7 +1,4 @@
 # PBD-OBD
-Tasks made for Basics of Databases and Object Databases on Cracow Univerity of Technology
+Tasks made for Basics of Databases and Object Databases on Cracow Univerity of Technology. Scheme of the database is in scheme.pdf. Originally tasks were made in Oracle's SQL. The schema script + inserts is provided, but for PostgreSQL.
 
-To import data and create tables I work with, use database.sql file.
-Scheme of the database is in scheme.pdf
-
-Might have some gaps, since i didn't save all the progress I made dusing classes.
+There are quite a few gaps. I didn't save all the progress I made during classes.
